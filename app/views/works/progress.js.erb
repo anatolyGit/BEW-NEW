@@ -1,0 +1,131 @@
+﻿<% if @project.working.to_s == "1" %>
+	alert("Somebody works on this project now! Please wait");
+	$(".page").removeClass("masked");
+	return;
+<% end %>
+
+$('#dialog').dialog({
+	autoOpen: false,
+	width: '810',
+	height: '854',
+	position: ['top', 10],
+	close: function()
+	{
+		$(".page").removeClass("masked");
+		$.ajax(
+		 {
+			type: "POST",
+			url: "/projects/working/" + <%= @project.id %>
+		 }				 
+		);
+	}
+	 
+});
+// POP Progress
+$("#dialog").html("<%= escape_javascript render(:partial => 'progress') %>");
+$(".page").addClass("masked");
+$("#dialog").dialog("open");
+$(".ui-dialog-titlebar").hide();
+// ------------------------------------------------------------------------
+// Add Validation
+var $myform = $('#image-form').idealforms(options).data('idealforms');
+
+$('#cancel').click(function(e){
+	 $("#dialog").dialog("close");
+	 $('.page').removeClass("masked");
+	 e.preventDefault();
+});
+
+function on_submit(obj, form, ev)
+{
+
+	if ( form.getInvalid().length == 0 )
+	{
+		$("#dialog").dialog("close");
+		 
+		var loading_append = "<div id='loading_back'><div id='loading_img'></div></div>";
+		$('body').append(loading_append);		 
+		$('.page').removeClass("masked");
+	} else
+	{
+		$(obj).closest("form").find("input, radio, textarea, select").each(function() {
+			$(this).focus();
+		});
+		ev.preventDefault();
+	}
+}
+
+
+$("#submit_btn").click(
+	function(e)
+	{  
+		if (!$("input[name='process']").eq(0).prop("checked") &&
+		!$("input[name='process']").eq(1).prop("checked") && !$("input[name='process']").eq(2).prop("checked"))
+		{
+			e.preventDefault();
+			$("#p_error").show(); 
+		} else { 
+			on_submit(this, $myform, e); 
+		}
+
+	}
+);
+
+$("input[name='process']").click(
+	function() {
+		$("#p_error").hide();
+		$("#p_error").next().show();
+	}
+); 
+$(".action").click(
+	function() {
+		working(this);
+	}
+);
+
+$("input[name='process']" ).change(
+    function(e)
+    {
+        var process = $(this).val();
+        
+        if (process == "Fix、リリース前チェック")
+        {
+        	$("input[name='release_before_request'").attr("value", 'release_before_request');
+
+        	// remove validation
+        	options['inputs']['work[charge_name]']['filters'] = "";
+        	options['inputs']['work[urls]']['filters'] = "";
+        	options['inputs']['work[release_date]']['filters'] = "";
+        	options['inputs']['work[contact]']['filters'] = "";
+        	options['inputs']['work[estimation]']['filters'] = "";
+        	options['inputs']['work[submit_date]']['filters'] = "";
+        	options['inputs']['work[testup]']['filters'] = "";
+        	
+        	// add validation
+  			options['inputs']['release[charge_name]']['filters'] = "required";
+        	options['inputs']['release[urls]']['filters'] = "required";
+        	options['inputs']['release[release_date]']['filters'] = "required datehour" ;
+        	options['inputs']['release[jobs]']['filters'] = "required";		
+        }
+        else
+        {
+        	$("input[name='release_before_request'").attr("value", '');
+        	// remove validation
+        	options['inputs']['release[charge_name]']['filters'] = "";
+        	options['inputs']['release[urls]']['filters'] = "";
+        	options['inputs']['release[release_date]']['filters'] = "";
+        	options['inputs']['release[jobs]']['filters'] = "";
+
+        	// add validation
+        	options['inputs']['work[charge_name]']['filters'] = "required";
+        	options['inputs']['work[urls]']['filters'] = "required";
+        	options['inputs']['work[release_date]']['filters'] = "required datehour";
+        	options['inputs']['work[contact]']['filters'] = "required";
+        	options['inputs']['work[estimation]']['filters'] = "required estimation";
+        	options['inputs']['work[submit_date]']['filters'] = "required datehour";
+        	options['inputs']['work[testup]']['filters'] = "required datehour";
+
+        }  
+        $('#image-form').idealforms(options).data('idealforms');
+    }
+);

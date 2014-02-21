@@ -1,0 +1,70 @@
+$('#dialog').dialog({
+		autoOpen: false,
+		width: '95%',
+		top: '1px',
+		//modal: true
+		close: function()
+		{
+			$(".page").removeClass("masked"); 
+		}
+		 
+});
+
+$("#dialog").html("<%= escape_javascript render(:partial => 'new') %>");
+$(".page").addClass("masked");
+$("#dialog").dialog("open");
+$(".ui-dialog-titlebar").hide();
+
+$(".ui-widget-overlay").click(
+	function()
+	{
+		//$("#dialog").dialog("close");
+
+	}
+);
+
+var $myform = $('#project-form').idealforms(options).data('idealforms');
+
+$('#project-form .ideal-radio').eq(0).addClass("checked");
+
+function on_submit(obj, form, ev)
+{
+		if ( form.getInvalid().length == 0 )
+		{
+
+		} else
+		{
+			$(obj).closest("form").find("input, radio, textarea, select").each(function() {
+				$(this).focus();
+			});
+			ev.preventDefault();
+		}
+}
+
+$("#draft_btn").click(
+	function(e)
+	{
+		on_submit(this, $myform, e);
+	}
+);
+$("#confirm_btn").click(
+	function(e)
+	{
+		on_submit(this, $myform, e);
+
+	}
+
+
+);
+// draft
+$('#cancel').click(function(e){
+	 $("#dialog").dialog("close");
+	 $('.page').removeClass("masked");
+	 e.preventDefault();
+});
+
+$(".action").click(
+	function() {
+		working(this);
+	}
+);

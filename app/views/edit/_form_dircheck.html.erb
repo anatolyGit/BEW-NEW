@@ -1,0 +1,93 @@
+<h2 class="popup">
+	<%= image_tag 'popup/tit_h2_dir_check.gif', alt: 'Dirチェック中', width: 113, height: 18 %>
+</h2>
+
+<%= form_for( pa_link, html: { class: 'edit-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %> 
+	 <%= hidden_field_tag :track, @start_time %>
+	  
+	<table>
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :check_name, '担当名:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if pa_link.work.present? %>
+							<%= f.text_field :check_name, value: pa_link.work.check_name %>
+						<% else %>
+							<%= f.text_field :check_name %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :estimation, '見込み工数:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if pa_link.work.present? %>
+							<%= f.text_field :estimation, value: pa_link.work.estimation %>
+						<% else %>
+							<%= f.text_field :estimation, placeholder: 'h（修正がある場合)' %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :contact, '修正事項:' %></div></div>
+			</td>
+
+			<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm">   
+						<%= f.text_area :contact, :value => pa_link.work.contact  %> 
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm">
+						<%= f.file_field :attached_file %>
+						<% unless pa_link.work.file_name.blank? %> 
+							<div class="file1">
+								・ <a href="<%= pa_link.work.attached_file %>">
+									<%= pa_link.work.file_name %>
+								  </a>
+							</div>
+						<% end %>	
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+<!-- Radio -->
+<div class="innerStepRadio clearfix">
+	<div id="sts">
+	    <%= f.label '進捗：' %>
+	    <label>
+	      <%= radio_button_tag :process, '初稿確認出し中' %>
+	      <p class="nam">テストアップ</p>
+	    </label>
+
+	    <label>
+	      <%= radio_button_tag :process, '初稿内校戻し' %>
+	      <p class="nam">修正アリ</p>
+	    </label>
+	     <span id="p_error">Please check!</span>
+	</div>
+</div>
+
+<%= render partial:"edit/update_btn", locals: {f: f, pa_link: pa_link} %>
+<% end %>

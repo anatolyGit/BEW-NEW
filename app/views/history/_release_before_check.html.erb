@@ -1,0 +1,78 @@
+<h2 class="popup">	
+	<%= image_tag 'popup/tit_h2_release_before_check.gif', alt: 'リリース前チェック', width: 152, height: 18 %>
+</h2> 
+
+<table>
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>担当名:</label></div></div>
+		</td>
+
+		<td>
+			<div class="d_ht">
+				<div class="frm">
+					<%= @work_charge_name %>
+				</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>対象URL:</label></div> 
+			</div>
+		</td>
+
+		<td>
+			<div class="d_ht">
+				<div class="frm">	
+					 <%= pa_link.work.urls %>
+				</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><label>最終job:</label></div></div>
+			</td>
+
+			<td>
+				<div class="d_ht">
+					<div class="frm">								 
+						<%= pa_link.work.jobs %> 						
+					</div>
+				</div>
+			</td>
+	</tr>
+
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>連絡事項:</label></div></div>
+		</td>
+
+		<td>
+			<div class="d_ht">
+				<div class="frm">
+					 <%= pa_link.work.contact %>
+				</div>
+			</div>
+		</td>
+	</tr> 
+	<tr>
+		<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+		<td>
+			<div class="d_ht">
+				<div class="frm">
+					 <% unless pa_link.work.file_name.blank? %> 
+							<div class="file1">
+								・ <a href="<%= pa_link.work.attached_file %>">
+									<%= pa_link.work.file_name %>
+								  </a>
+							</div>
+						<% end %>	
+				</div>
+			</div>
+		</td>
+	</tr>
+</table> 

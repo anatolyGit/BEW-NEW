@@ -1,0 +1,62 @@
+﻿#confirm {
+	width:1100px;
+	background:#fff;
+	padding:40px 15px;
+}
+#confirm table {
+  background:#fff;
+  max-width:100%;
+  min-width:1100px;
+  border-spacing:0;
+  width:100%;
+}
+#confirm table th {
+    vertical-align:middle;
+	padding:0 15px;
+    line-height:18px;
+    text-align:left;
+	border-bottom:1px solid #ccc;
+	min-height:75px;
+	height:75px;
+	font-weight:normal;
+}
+#confirm table td {
+    vertical-align:middle;
+	padding:15px;
+    line-height:18px;
+    text-align:left;
+    border-bottom:1px solid #ccc;
+	border-left:1px solid #ccc;
+	min-height:75px;
+	height:75px;
+}
+#confirm table .frist {
+	border-top:1px solid #000;
+}
+#confirm table .last {
+	border-bottom:1px solid #000;
+}
+#sts {
+	padding:0;
+	margin:15px 0 20px 0;
+	width:100%;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+#innerStep8 {
+	padding:35px 10px 0 10px;
+}
+
+#innerStep8 div.ideal-wrap label {
+	margin-right:15px;
+}
+
+table tr:nth-child(2n+1) {  /* 奇数行 */
+	background-color: #f8f8f8;
+}

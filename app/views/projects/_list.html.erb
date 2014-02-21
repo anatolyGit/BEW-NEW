@@ -1,0 +1,93 @@
+<% if @projects.any? %>
+
+	<% @projects.each_with_index do |project, index| %>
+	<!-- action < 案件完了 -->  
+		<% unless project.pa_links.exists?( :status_id => 31 ) %>
+			<tr id = "project_<%= project.id %>">
+				<td>
+					<%= project.number %>
+				</td>
+				<td class="rap">
+					<p class="textOverflow01">
+						<span><%= project.name %></span>
+					</p>
+				</td>
+				<td>  
+					<% if project.pa_links.last.try(:status) %>
+
+					<% 	previous_status = 0
+						if project.pa_links[-2].present? %>
+						<% previous_status = project.pa_links[-2].status_id %>
+					<% end %>
+					 
+						<%= 
+							status_name( @status, project.pa_links.last.status_id, project.pa_links.work_count.count, previous_status  )
+						%>
+					<% end %>
+				</td>
+				<td>
+					<%= time_format(project.submit_date)%>
+				</td>
+				<td>
+					<%= time_format(project.testup)%>
+				</td>
+				<td>
+					<%= time_format( project.release_date ) %>
+				</td>
+				<td>
+					<% if project.pa_links.last.work.present? %> 
+			       		<% if project.pa_links.work_charge.present? %>
+			        		<%= project.pa_links.work_charge.work.charge_name %>
+			       		<% elsif %> 
+			             	<%= project.pa_links.last.work.charge_name %>
+			            <% end %> 
+			     	<% end %>
+				</td>
+				<td>
+					<% if project.pa_links.last.work.present? %> 
+				   		<% if project.pa_links.wcheck_name.present? %>
+				    		<%= project.pa_links.wcheck_name.work.check_name %>
+				   		<% elsif %> 
+				         	<%= project.pa_links.last.work.check_name %>
+				        <% end %> 
+				 	<% end %>
+				</td>
+				<td >
+		      		<% if project.pa_links.last.try(:status_id) %>
+				      	<% if project.draft  %>
+				      		中断
+				      	<% else %> 
+			      			<% if project.working.to_s == "0" || project.working.to_s == ""  %>	      				
+		      					<% if action_permission(project.pa_links.last.status_id) %>
+		      						<%= link_to "/works/progress/#{project.id}", remote: true, :class => get_action_css(project.pa_links.last.status_id ) do %>
+										<%= action_name( @status, current_action(project.pa_links.last.status_id), project.pa_links.work_count.count   ) %>
+									<% end %>
+		      					<% else %>
+		      						<%= action_name( @status, current_action(project.pa_links.last.status_id), project.pa_links.work_count.count   ) %>
+		      					<% end %> 						 
+							<% else %>
+									<%= working_status_name( @status, current_action(project.pa_links.last.status_id)   ) %>
+							<% end %> 
+						<% end %>
+			      	<% else %>
+			       	 <%= link_to '中断', new_project_path(id: project.id)%>
+			      	<% end %>
+				</td> 
+				<td class="dirTd">
+					<% if session[:user_authority] == 1 %>
+						<%= link_to '編集', edit_project_path(id: project.id) %>
+					<% else %>
+						編集
+					<% end %> 
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+<% else %>
+	<tr>
+		<td colspan="10">
+			案件が存在しません! 
+		</td>
+	</tr>
+<% end %>
+ 

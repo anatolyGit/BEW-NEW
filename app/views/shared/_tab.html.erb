@@ -1,0 +1,33 @@
+﻿<ul class="tabNavi clearfix">
+	<li>
+		<%= link_to "/projects/all", remote: true do %>
+			<%= image_tag("list/tab_all_on.gif", :alt=> "稼働全案件",  :width=> "156", :height=> "41", :id => "all_tab") %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "/projects/amc", remote: true do %>
+			<%= image_tag("list/tab_amc_off.gif", :alt=> "AMC 運用",  :width=> "156", :height=> "41", :id => "amc_tab") %>
+		<% end %>
+	</li>
+
+	<li>
+		<%= link_to "/projects/int", remote: true do %>
+			<%= image_tag("list/tab_int_off.gif", :alt=> "INT 運用",  :width=> "156", :height=> "41", :id => "int_tab") %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "/projects/wws", remote: true do %>
+			<%= image_tag("list/tab_wws_off.gif", :alt=> "WWS 運用",  :width=> "156", :height=> "41", :id => "wws_tab") %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "/projects/etc", remote: true do %>
+			<%= image_tag("list/tab_etc_off.gif", :alt=> "その他",  :width=> "156", :height=> "41", :id => "etc_tab") %>
+		<% end %>
+	</li>
+	<li class="lastBtn">
+		<%= link_to "/projects/release", remote: true do %>
+			<%= image_tag("list/tab_released_off.gif", :alt=> "リリース済み",  :width=> "156", :height=> "41", :id => 'released_tab') %>
+		<% end %>
+	</li>
+</ul>

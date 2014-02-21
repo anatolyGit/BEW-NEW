@@ -1,0 +1,82 @@
+<div id="inner">
+	<h1> 
+		<%= image_tag 'edit/tit_h1_edit.gif', alt: '案件編集（※要注意）', width: 284, height: 35 %>
+	</h1>
+	<div id = "mainContents">
+		<p class="clearfix editArea">	 
+			<%= link_to project_path, :confirm => "本当にこの案件を破棄しますか", :method => :delete do %>
+				<button type="submit" id="editBtn">この案件を破棄</button>
+			<% end %>
+		</p>
+		<% work_count, previous_status = 0 %>
+		<% if @project.pa_links.count > 0 %>
+			<!-- Project form -->
+			<%= render partial:"edit/form_project" %> 
+			<div id = "workbox">
+				<% @project.pa_links.each_with_index do | pa_link, index | %>
+					<% 
+						unless pa_link == @project.pa_links.last
+							@pa_link = @project.pa_links[index + 1]		
+					 		
+							if pa_link.status_id == 1 || pa_link.status_id == 2
+								work_count += 1
+							end
+						%> 
+							
+							<!-- Action = 着手 --> 						
+							<% if pa_link.status_id  == 1 %>
+								<% if @pa_link.status_id == 16 %>
+									<%= render partial:"edit/form_image_upload", locals: {work_count: work_count, pa_link: @pa_link }%>
+								<% else %>
+									<%= render partial:"edit/form_work", locals: {work_count: work_count, pa_link: @pa_link }%>   
+								<% end %>
+							<% elsif pa_link.status_id == 16 %>
+								<%= render partial:"edit/form_work", locals: {work_count: work_count, pa_link: @pa_link }%>   
+							<!-- Action = 画像等・準備中 -->
+							<% elsif pa_link.status_id  == 2  %>	
+								<%= render partial:"edit/form_image_upload", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action = Wチェック待ち -->
+							<% elsif pa_link.status_id  == 5  %>	 
+								<%= render partial:"edit/form_wcheck", locals: {work_count: work_count, pa_link: @pa_link }%>
+								
+							<!-- Action == 修正アリ -->
+							<% elsif pa_link.status_id  == 21  %> 
+								<%= render partial:"edit/form_edit_work", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == テストアップ -->
+							<% elsif pa_link.status_id  == 22  %>	 
+								<%= render partial:"edit/form_dircheck", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == 初稿内校戻し -->
+							<% elsif pa_link.status_id  == 25  %>	
+								<%= render partial:"edit/form_uchiko", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == 内校戻し -->	
+							<% elsif pa_link.status_id  == 9  %>
+								<%= render partial:"edit/form_uchiko_work", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == 初稿確認出し中 -->		
+							<% elsif pa_link.status_id  == 23  %> 
+								<% if @pa_link.status_id == 28 %>
+									<%= render partial:"edit/form_release_request", locals: { work_count: work_count, pa_link: @pa_link   }%> 
+								<% else %>
+									<%= render partial:"edit/form_dir_work_request", locals: { work_count: work_count, pa_link: @pa_link   }%> 
+								<% end %>	
+							<!-- Action == Fix、リリース前チェック -->			
+							<% elsif pa_link.status_id  == 28  %>
+								<%= render partial:"edit/form_release_before_check", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == リリース前チェック完了 -->
+							<% elsif pa_link.status_id  == 29  %>			
+								<%= render partial:"edit/form_dir_release_before_check", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == リリース待機 -->	
+							<% elsif pa_link.status_id  == 14  %>	
+								<%= render partial:"edit/form_release_check", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<!-- Action == リリース後チェック完了 -->	
+							<% elsif pa_link.status_id  == 30  %>	
+								<%= render partial:"edit/form_dir_release_check", locals: {work_count: work_count, pa_link: @pa_link }%>
+							<% end %> 
+						<% else %>
+
+						<% end %>
+					<% previous_status = pa_link.status_id %>
+				<% end %>				
+			</div>
+		<% end %>
+	</div>
+</div>

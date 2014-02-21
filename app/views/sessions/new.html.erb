@@ -1,0 +1,35 @@
+<div id="inner">
+	<h1><%= image_tag("list/ttl_edit.gif", :alt=> "",  :width=> "247", :height=> "35") %></h1>
+	<div id="mainContents">
+		<%= form_tag(:action => "login") do %>
+			<% if flash[:alert] %>
+				<p id="notice"><%= flash[:alert] %></p>
+			<% end %>
+			<!-- Begin Form -->
+			<div id="innerStep1" class="clearfix">
+			<!-- Begin id -->
+				<div>
+					<label>Id:</label>
+					<%= text_field_tag :login, params[:login] %>
+				</div>
+			<!-- End id -->
+			</div>
+			<div id="innerStep2" class="clearfix">
+			<!-- Begin password -->
+				<div>
+					<label>Pass:</label>
+					<%= password_field_tag :password, params[:password] %>
+				</div>
+			<!-- End password -->
+			</div>	
+			<div id="innerStep3" class="clearfix">
+			<!-- Begin Buttons -->
+				<div>
+					<%= submit_tag "ログイン" %>
+				</div>
+			<!-- End Buttons -->
+			</div>
+		<% end %>
+		<!-- End Form -->
+	</div>
+</div>

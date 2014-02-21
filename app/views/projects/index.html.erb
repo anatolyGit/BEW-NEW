@@ -1,0 +1,28 @@
+<%= render "shared/logout" %><div class="page">
+	<div class="inner">
+		<%= render "shared/header" %>
+		<%= render "shared/tab"%>
+
+		<div id="projectsListArea">
+			<table id="sort" class="sort">
+				<thead>
+					<tr>
+					<th class="sort-header sort-up first_th caseNumber">案件番号</th>
+					<th class="sort-header caseArea">案件名</th>
+					<th class="sort-header progress">進捗</th>
+					<th class="sort-header presentation">提出</th>
+					<th class="sort-header testup">テスト</th>
+					<th class="sort-header release">リリース</th>
+					<th class="sort-header charge">作業担当</th>
+					<th class="sort-header wcheck">Wチェック</th>
+					<th class="sort-header actions">Actions</th>
+					<th class="sort-header">&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody id="project_list">
+					<%= render "list" %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,310 @@
+﻿ /**
+ * Errors
+ *
+ *= require jquery.idealforms.min
+ */
+
+$.extend($.idealforms.filters, {
+  datehour: {
+    regex: function(_, value) {
+             var format = /^(\d{2})-(\d{2})-(\d{2})-(\d{2})$/;
+             var res = format.exec(value);
+             if (res == null) { return false; }
+
+             var year = 2000 + parseInt(res[1]), mon = parseInt(res[2]), day = parseInt(res[3]), hour = parseInt(res[4]);
+             var date = new Date(year, mon - 1, day, hour); 
+             
+             if ((date.getFullYear() == year) &&
+                 (date.getMonth() == mon - 1) &&
+                 (date.getDate() == day) &&
+                 (date.getHours() == hour)) {
+               return true;
+             } else {
+               return false;
+             }
+           },
+    error: 'yy-mm-dd-hhで入力してください。'
+  },
+  estimation: {
+    regex: function(_, value) {
+             if (value.match(/^\d+(\.\d{0,2})?$/)) {
+               return true;
+             } else {
+               return false;
+             }
+           },
+    error: '小数点以下は2桁です。'
+  },
+  check_number:
+  {
+     regex: function(_, value) {
+            var flag = true;        
+            $.ajax(
+              {
+                url:  '/projects/check_number',
+                data: {number: value},
+                method: 'GET',
+                async: false,
+                success: function(result)
+                {                     
+                    if ( result == "true")                                        
+                      flag = true;
+                    else                      
+                      flag = false;   
+                }
+              } 
+            );   
+            return flag;
+          },
+
+    error: '案件番号を入力してください。'
+  }
+})
+
+var $myform = '';
+var options = {
+  onFail: function() {
+  //  alert( $myform.getInvalid().length +' invalid fields.' );
+    return;
+  },
+
+  inputs: {
+    'password': {
+      filters: 'required pass',
+    },
+    'username': {
+      filters: 'required username',     
+    },
+    'comments': {
+      filters: 'min max',
+      data: { min: 0, max: 5000 }
+    },
+    'project[category]': {
+      filters: 'required exclude',
+      data: { exclude: ['default'] },
+      errors : {
+        required: '案件区分を選択してください。',
+        exclude: '案件区分を選択してください。'
+      }
+    },
+    'project[number]' : {
+      filters: 'required check_number', 
+      errors: { 
+        required: '案件番号を入力してください。'
+      }
+    },
+    'project[name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 256}
+    }, 
+    
+    'project[release_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    }, 
+
+    'project[submit_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+
+    'project[testup]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+    
+    'project[urls]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: 'テスト環境のURLを入力してください。'
+      }
+    },
+    'project[content]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: '作業内容を入力してください。'
+      }
+    },
+
+    'project[estimation]': {
+      filters: 'required estimation',
+      errors: {
+        required: '小数点以下は2桁です。'
+      }
+    },
+    // release
+    'release[charge_name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 256}
+    },
+    'release[release_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    }, 
+    'release[submit_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+    'release[testup]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+    'release[urls]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: 'テスト環境のURLを入力してください。'
+      }
+    },
+    'release[jobs]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    // work
+    'work[charge_name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 256}
+    },
+    'work[contact]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    'work[jobs]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    'work[check_name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    'work[release_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    }, 
+    'work[submit_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+    'work[testup]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+
+    'work[urls]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: 'テスト環境のURLを入力してください。'
+      }
+    },
+
+    'work[content]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: '作業内容を入力してください。'
+      }
+    },
+
+    'work[estimation]': {
+      filters: 'required estimation',
+      errors: {
+        required: '小数点以下は2桁です。'
+      }
+    },
+    // pa_link
+    'pa_link[charge_name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 256}
+    },
+    'pa_link[contact]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    'pa_link[jobs]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000}
+    },
+    'pa_link[check_name]': {
+      filters: 'required min max',
+      data: { min: 1, max: 256}
+    },
+    'pa_link[release_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    }, 
+    'pa_link[submit_date]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+    'pa_link[testup]': {
+      filters: 'required datehour',
+      errors: {
+        required: 'yy-mm-dd-hhで入力してください。'
+      }
+    },
+
+    'pa_link[urls]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: 'テスト環境のURLを入力してください。'
+      }
+    },
+
+    'pa_link[content]': {
+      filters: 'required min max',
+      data: { min: 1, max: 5000 },
+      errors: {
+        required: '作業内容を入力してください。'
+      }
+    },
+
+    'pa_link[estimation]': {
+      filters: 'required estimation',
+      errors: {
+        required: '小数点以下は2桁です。'
+      }
+    },
+    'progress': {
+      filters: 'required',
+      errors: {
+        required: '画像の作成があるかどうかを選択してください。'
+      }
+    },
+    'langs[]': {
+      filters: 'min max',
+      data: { min: 2, max: 3 },
+      errors: {
+        min: 'Check at least <strong>2</strong> options.',
+        max: 'No more than <strong>3</strong> options allowed.'
+      }
+    }
+  }
+};
+
+

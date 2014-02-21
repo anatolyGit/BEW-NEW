@@ -1,0 +1,68 @@
+<h2>
+    CSVダウンロード項目
+</h2>
+<table border="1">
+  <tr>    
+    <th style="background-color:#538ED5;"><font color ='white' size ="3">案件番号</font></th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >最終進捗（何稿までか）</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >リリース日</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >見込み工数（合算）</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >作業工数（合算）</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >画像作成工数（合算）</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3">Wチェック工数（合算）</th>
+    <th style="background-color:#538ED5;"><font color ='white' size ="3" >リリース前後工数（合算）</th>
+  </tr>
+   
+  <% @released_project .each do |project|     
+        # 案件番号
+        number = project.number
+        # 最終進捗（何稿までか）
+        recent_progress = project.pa_links.work_count.count.to_s + "稿"
+        # リリース日
+        release_date = project.release_date.strftime("%y-%m-%d-%I")
+        
+        # 見込み工数(合算)    
+        e_sum = Project.get_estimations_for_work(project.id)  
+        e_sum_r = 0
+        unless e_sum.nil?
+          e_sum_r = e_sum[0]['estimation']
+        end
+        # 作業工数（合算）
+        w_sum = Project.get_track_for_work(project.id)
+        w_sum_r = 0
+        unless w_sum.nil?
+          w_sum_r = w_sum[0]['track']
+        end
+        # 画像作成工数（合算）
+        i_sum = Project.get_track_for_image(project.id)
+        i_sum_r = 0
+        unless i_sum.nil?
+          i_sum_r = i_sum[0]['track']
+        end
+
+        # Wチェック工数（合算）
+        c_sum = Project.get_track_for_wcheck(project.id)
+        c_sum_r = 0
+        unless c_sum.nil?
+          c_sum_r = c_sum[0]['track']
+        end
+        # リリース前後工数（合算）
+        r_sum = Project.get_track_for_release(project.id)         
+        r_sum_r = 0
+        unless r_sum.nil?
+          r_sum_r = r_sum[0]['track']
+        end
+    %>
+    <tr>
+        <td><%=  project.number.to_s %></td>
+        <td><%= recent_progress %></td>
+        <td><%= release_date %></th>
+        <td><%= e_sum_r %></td>
+        <td><%= w_sum_r %></td>
+        <td><%= i_sum_r %></td>
+        <td><%= c_sum_r %></td>
+        <td><%= r_sum_r %></td>
+      </tr>
+  <% end %>
+</table>
+ 

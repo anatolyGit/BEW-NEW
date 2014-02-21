@@ -1,0 +1,77 @@
+<% if @projects.any? %>
+	<% @projects.each_with_index do |project, index| %>
+		<tr id = "project_<%= project.id %>">
+		<td>
+			<%= project.number %>
+		</td>
+		<td class="rap">
+			<p class="textOverflow01">
+				<span><%= project.name %></span>
+			</p>
+		</td>
+		<td>
+      <% if project.pa_links.last.try(:status) %>
+      		<% if project.pa_links.last.status_id == 9 || project.pa_links.last.status_id == 10 %>
+      			<%= status_name( @status, 25 )  %>
+      		<% elsif project.pa_links.last.status_id == 27  %>
+      			<%= status_name( @status, 5 )  %>
+      		<% else %>
+	        	<%=
+	        		status_name( @status, project.pa_links.last.status_id, project.pa_links.work_count.count  )
+	        	%> 
+	        <% end %>
+      <% end %>
+		</td>
+		<td>
+			<%= time_format(project.submit_date)%>
+		</td>
+		<td>
+			<%= time_format(project.testup)%>
+		</td>
+		<td>
+			<%= time_format( project.release_date ) %>
+		</td>
+		<td>
+			<% if project.pa_links.last.work.present? %>
+				<%= project.pa_links.last.work.charge_name %>
+			<% end %>
+		</td>
+		<td>
+			 <% if project.pa_links.last.work.present? %>
+				<%= project.pa_links.last.work.check_name %>
+			 <% end %>
+		</td>
+		<td >
+      		<% if project.pa_links.last.try(:status_id) %> 
+      			<% if project.working.to_s == "0" || project.working.to_s == ""  %>
+      				<!-- action < 案件完了 -->   
+					<%= action_name( @status, current_action(project.pa_links.last.status_id), project.pa_links.work_count.count   ) %>
+					 
+				<% else %>
+						<%= working_status_name( @status, current_action(project.pa_links.last.status_id)   ) %>
+				<% end %>  
+			<% end %>
+		</td> 
+		<td class="dirTd">
+			<% if session[:user_authority] == 1 %>
+				<%= link_to '編集', edit_project_path(id: project.id) %>
+			<% else %>
+				編集
+			<% end %> 
+		</td>
+		</tr>
+	<% end %>
+<% else %>
+	<tr>
+		<td colspan="10">
+			案件が存在しません! 
+		</td>
+	</tr>
+<% end %>
+
+<script> 
+  $(document).ready(function(){ 
+		$("#sort").tablesorter(); 
+	});
+</script>
+ 

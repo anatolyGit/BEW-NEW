@@ -1,0 +1,95 @@
+﻿<h2 class="popup">	
+	<%= form_h2_title( work_count ) %> 
+</h2>
+
+<%= form_for(pa_link , html: { class: 'edit-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %> 
+	 <%= hidden_field_tag :track, @start_time %>	 	
+	 <%= f.hidden_field :check_name, value: pa_link.work.check_name %>
+	 <%= hidden_field_tag "type", "edit" %>
+		<table>
+			<tr>
+				<td>
+					<div class="t_ht"><div class="txt"><%= f.label :charge_name, '担当名:' %></div></div>
+				</td>
+
+				<td>
+					<div class="d_ht">
+						<div class="frm">	 
+							<% if work_count < 2 %>
+							 	<%= f.text_field :charge_name, value: pa_link.work.charge_name %>
+							<% else %>
+								<%= @work_charge_name %>
+							<% end %>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div class="t_ht"><div class="txt"><%= f.label :contact, '確認事項:' %></div></div>
+				</td>
+
+				<td>
+					<div class="d_ht">
+						<div class="frm">							
+							<%= f.text_area :contact, value: pa_link.work.contact  %>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div class="t_ht"><div class="txt"><%= f.label :jobs, '初回job:' %></div></div>
+				</td>
+
+				<td>
+					<div class="d_ht">
+						<div class="frm">								
+							<%= f.text_area :jobs, value: pa_link.work.jobs  %>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td>
+					<div class="d_ht">
+						<div class="frm">
+							<%= f.file_field :attached_file %>
+							<% unless pa_link.work.file_name.blank? %> 
+								<div class="file1">
+									・ <a href="<%= pa_link.work.attached_file %>">
+										<%= pa_link.work.file_name %>
+									  </a>
+								</div>
+							<% end %>	 
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+<!-- Radio -->
+<div class="innerStepRadio clearfix">
+	<div id="sts">
+	    <%= f.label '進捗：' %>
+	    <label>
+	      <%= radio_button_tag :process, 'Wチェック待ち' %>
+	      <p class="nam">Wチェック待ち</p>
+	    </label>
+
+	    <label>
+	      <%= radio_button_tag :process, '作業ストップ' %>
+	      <p class="nam">作業ストップ</p>
+	    </label>
+
+	    <span id="p_error">Please check!</span>
+	</div>
+</div> 
+
+<%= render partial:"edit/update_btn", locals: {f: f, pa_link: pa_link} %>
+<% end %>
+ 

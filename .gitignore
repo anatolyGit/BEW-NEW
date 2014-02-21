@@ -1,0 +1,11 @@
+/.bundle
+/log/*.log
+/vendor
+.ruby-version
+/tmp
+*.swp
+.rspec
+public/uploads/
+public/assets/
+config/database.yml 
+

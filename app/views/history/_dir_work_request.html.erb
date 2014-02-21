@@ -1,0 +1,114 @@
+<h2 class="popup"> 
+	<%= history_dir_h2_title(work_count) %>
+</h2>
+
+<table>
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><label>担当名:</label></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<%= pa_link.work.charge_name %> 
+					</div>
+				</div>
+			</td>
+
+			<td>
+				<div class="t_ht"><div class="txt"><label>リリース日：</label></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">  
+						<%= time_format( pa_link.work.release_date ) %>
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><label>提出日（札幌）:</label></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt"> <a href=" "></a>
+						<%= time_format( pa_link.work.submit_date ) %>
+					</div>
+				</div>
+			</td>
+
+			<td>
+				<div class="t_ht"><div class="txt"><label>テストアップ:</label></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt"> 
+						<%= time_format( pa_link.work.testup ) %> 
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><label> 対象URL:</label></div></div>
+			</td>
+
+			<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm"> 
+						<%= pa_link.work.urls  %> 
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><label>作業内容:</label></div></div>
+			</td>
+
+			<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm"> 
+						<%= pa_link.work.contact  %> 
+					</div>
+				</div>
+			</td>
+
+
+		</tr>
+		<tr>
+			<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td>
+				<div class="d2_ht">
+					<div class="frm">
+						<% unless pa_link.work.file_name.blank? %> 
+							<div class="file1">
+								・ <a href="<%= pa_link.work.attached_file %>">
+									<%= pa_link.work.file_name %>
+								  </a>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</td>
+
+			<td>	
+				<div class="t_ht"><div class="txt"><label>見込み工数:</label></div></div>
+			</td>
+			<td>
+				<div class="d2_ht">
+					<div class="txt"> 
+						<%= pa_link.work.estimation %> 
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>

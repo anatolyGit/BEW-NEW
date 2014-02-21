@@ -1,0 +1,9 @@
+<div id="innerStep8" class="clearfix">
+<!-- Buttons -->
+  <div>
+  	<%= link_to "projects/working/#{@project.id}", :remote => true, :class => "cancel_btn" do %>
+        <%= f.button '取り消し', id: :cancel %>
+    <% end %>
+	<%= f.submit '更 新',id: :submit_btn %>
+  </div>
+</div>

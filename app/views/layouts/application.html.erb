@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset=utf-8 />
+  <title>
+    <%= (content_for?(:title)? "#{yield(:title)} |" : '') %> ASW案件管理
+  </title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= yield :additional_style_sheets if content_for? :additional_style_sheets %>
+ 	<%= javascript_include_tag "application" %>
+  <%= yield :additional_javascripts if content_for? :additional_javascripts %>
+ 	<%= csrf_meta_tags %>
+</head>
+<body>
+	<%= yield %>
+	<div id="dialog">
+	</div>
+</body>
+</html>

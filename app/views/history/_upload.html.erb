@@ -1,0 +1,19 @@
+<h2 class="popup">
+	<%= image_tag 'popup/tit_h2_img_files_preparation.gif', alt: '画像等、準備中', width: 113, height: 18 %>
+</h2>
+<table>
+	<tr>
+		<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+		<td>
+			<div class="d_ht">
+				<div class="frm">
+					<% unless pa_link.work.file_name.blank? %> 
+						・ <a href="<%= pa_link.work.attached_file %>">
+							<%= pa_link.work.file_name %>
+						  </a>
+					<% end %> 
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>

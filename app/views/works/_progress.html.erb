@@ -1,0 +1,129 @@
+﻿ <h1>
+	<% if @project.pa_links[-2].present? %>
+		<% previous_status =  @project.pa_links[-2].status_id %>
+	<% else %>
+		<% previous_status = 0 %>
+	<% end %>
+ 	<%=  popup_title( @project.pa_links.last.status_id, @work_count, previous_status) %></h1>
+<div id="workbox" class="workboxscroll">
+	<%= render "popup/current_project"  %>
+	<% 
+		previous_status = 0 
+		work_count = 0
+	%>
+	<% @project.pa_links.each_with_index do | pa_link, index |
+		if pa_link.status_id == 1 || pa_link.status_id == 2
+			work_count += 1
+		end %>
+		<% 	unless pa_link == @project.pa_links.last 
+			@next_pa_link = @project.pa_links[index + 1]	
+		%>
+			<!-- Action = 着手 --> 						
+			<% if pa_link.status_id  == 1 %>
+				<% unless @next_pa_link.status_id == 18 %>
+					<%= render partial:"history/work", locals: {work_count: work_count, pa_link: @next_pa_link } %> 
+				<% end %>
+			<% elsif pa_link.status_id  == 16 %>
+				<% unless @next_pa_link.status_id == 18 %>
+					<%= render partial:"history/work", locals: {work_count: work_count, pa_link: @next_pa_link } %> 
+				<% end %>
+			<!--  画像等・準備中 -->
+			<% elsif pa_link.status_id  == 2  %>	 	
+				<%= render partial:"history/upload", locals: {pa_link: @next_pa_link} %> 
+			<!-- Action = Wチェック待ち -->
+			<% elsif pa_link.status_id  == 5  %>	 
+				<%= render partial:"history/wcheck" , locals: {work_count: work_count, previous_status: previous_status, pa_link: @next_pa_link }%>	
+			<!-- Action = 修正アリ -->
+			<% elsif pa_link.status_id  == 21  %>	 
+				<% unless @next_pa_link.status_id == 4 %>
+					<%= render partial:"history/edit_work", locals: {work_count: work_count, pa_link: @next_pa_link } %>
+				<% end %>
+			<!-- Action = wcheck - テストアップ -->
+			<% elsif pa_link.status_id  == 22  %>	
+				<%= render partial:"history/dircheck", locals: {pa_link: @next_pa_link } %>
+			<!-- Action = 初稿内校戻し -->
+			<% elsif pa_link.status_id  == 25 %>
+				<% unless @next_pa_link.status_id == 10 %>			
+					<%= render partial:"history/uchiko", locals: {pa_link: @next_pa_link} %>
+				<% end %>
+			<!-- 内校戻し -->
+			<% elsif pa_link.status_id  == 9  %>
+				<!-- 内校戻し - 中断 -->
+				<% unless @next_pa_link.status_id == 18 %>		
+					<%= render partial:"history/uchiko_work", locals: {pa_link: @next_pa_link} %>
+				<% end %>
+			<!-- x稿依頼 -->
+			<% elsif pa_link.status_id  == 23  %> 
+				<!-- Fix、リリース前チェック -->
+				<% if @next_pa_link.status_id == 28 %>		
+					<%= render partial:"history/dir_release_before_check_request", locals: {pa_link: @next_pa_link} %>
+				<% else %>
+					<%= render partial:"history/dir_work_request", locals: {pa_link: @next_pa_link, work_count: work_count + 1 } %> 
+				<% end %>
+			<!-- Fix、リリース前チェック -->
+			<% elsif pa_link.status_id  == 28  %>
+				<%= render partial:"history/release_before_check", locals: {pa_link: @next_pa_link} %>
+			<!-- Action == リリース前チェック完了 -->
+			<% elsif pa_link.status_id  == 29  %>
+				<%= render partial:"history/dir_release_before_check", locals: {pa_link: @next_pa_link} %>	
+			<!-- リリース待機 -->
+			<% elsif pa_link.status_id  == 14 %>
+				 <%= render partial:"history/release_check", locals: {pa_link: @next_pa_link} %> 
+			<% end %>
+		<% else %>
+			<!-- Action = 着手 --> 						
+			<% if pa_link.status_id  == 1 %>
+				<%= render partial:"popup/form_work", locals: {work_count: work_count } %>
+			<% elsif pa_link.status_id  == 16 %>	 
+				<%= render partial:"popup/form_work", locals: {work_count: work_count } %>
+			<!--  画像等・準備中 -->
+			<% elsif pa_link.status_id  == 2 %>
+				<%= render partial:"popup/form_image_upload", locals: {work_count: work_count } %>
+			<!-- Action = Wチェック待ち -->
+			<% elsif pa_link.status_id  == 5  %>	 
+				<%= render partial:"popup/form_wcheck" %>
+			<!-- Action = 修正アリ -->
+			<% elsif pa_link.status_id  == 4  %>	 
+				<%= render partial:"popup/form_edit_work", locals: {work_count: work_count, pa_link: @pa_link  } %>
+			<!-- Action = wcheck - 修正アリ -->
+			<% elsif pa_link.status_id  == 21  %>	 
+				<%= render partial:"popup/form_edit_work", locals: {work_count: work_count } %> 
+			<!-- Action = wcheck - テストアップ -->
+			<% elsif pa_link.status_id  == 22  %>	
+				<%= render partial:"popup/form_dircheck" %>
+
+			<!-- 初稿内校戻し -->
+			<% elsif pa_link.status_id  == 10  %>	
+				<%= render partial:"popup/form_uchiko" %>   
+			<% elsif pa_link.status_id  == 25  %>	
+				<%= render partial:"popup/form_uchiko" %>   
+			<!-- 内校戻し -->
+			<% elsif pa_link.status_id  == 9  %>	
+				<%= render partial:"popup/form_uchiko_work" %>	  	
+			<!-- 内校戻し - 中断 -->
+			<% elsif pa_link.status_id  == 18  %>
+				<% if previous_status == 9 %>
+					<%= render partial:"popup/form_uchiko_work" %>
+				<% else %>
+					<%= render partial:"popup/form_work", locals: {work_count: work_count } %>
+				<% end %> 
+			<!-- 初稿確認出し中 -->
+			<% elsif pa_link.status_id  == 23  %>
+				<%= render partial:"popup/form_dirwork", locals:{ work_count: work_count }%>
+			<!-- Fix、リリース前チェック -->
+			<% elsif pa_link.status_id  == 28  %>
+				<%= render partial:"popup/form_release_before_check" %>	
+			<!-- Action == リリース前チェック完了 -->
+			<% elsif pa_link.status_id  == 29  %>
+				<%= render partial:"popup/form_dir_release_before_check" %>	
+			<!-- リリース待機 -->
+			<% elsif pa_link.status_id  == 14 %>
+				<%= render partial:"popup/form_release_check" %>
+			<!-- リリース後チェック完了 -->
+			<% elsif pa_link.status_id  == 30 %>
+				<%= render partial:"popup/form_dir_release_check" %>	
+			<% end %>
+		<% end %> 
+		<% previous_status = pa_link.status_id %> 
+	<% end %>
+</div>

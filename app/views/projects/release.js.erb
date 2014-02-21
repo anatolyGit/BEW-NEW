@@ -1,0 +1,32 @@
+
+$('#all_tab').attr({
+  src: "<%= asset_path('list/tab_all_off.gif') %>"
+});
+
+$('#amc_tab').attr({
+  src: "<%= asset_path('list/tab_amc_off.gif') %>"
+});
+
+$('#int_tab').attr({
+  src: "<%= asset_path('list/tab_int_off.gif') %>"
+});
+
+$('#wws_tab').attr({
+  src: "<%= asset_path('list/tab_wws_off.gif') %>"
+});
+
+$('#etc_tab').attr({
+  src: "<%= asset_path('list/tab_etc_off.gif') %>"
+});
+
+$('#released_tab').attr({
+  src: "<%= asset_path('list/tab_released_on.gif') %>"
+});
+
+$("#csv").show();
+
+$('#project_title').attr({
+  src: "<%= asset_path('list/ttl_released.gif') %>"
+});
+$("#project_list").html("<%= escape_javascript render(:partial => 'released_list', :type => @type )%>");
+new Tablesort(document.getElementById('sort'));

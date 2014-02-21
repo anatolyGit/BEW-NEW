@@ -1,0 +1,454 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ------------------------------------------
+  Reset
+  http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+---------------------------------------------*/
+
+body {
+  margin:0; 
+  font-size:13px;
+  line-height:18px;
+  color:#303030;
+  background-color:#f2f2f2;
+  -webkit-font-smoothing:antialiased;
+  border-top:8px solid #000;
+  }
+#inner {
+	margin:0 auto 50px;
+	width:1130px;
+
+	h1 {
+		margin:45px auto;
+	}
+}
+
+#mainContents {
+	width:1100px;
+	background:#fff;
+	padding:40px 15px;
+
+}
+/*-----------------------------------
+  From Area Style
+-------------------------------------*/
+
+#innerStep6
+{
+	float: left;
+}
+
+.blank_file
+{
+	float: left;
+}
+
+.attached_file
+{
+	float: left;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+#innerStep1, #innerStep2, #innerStep3, #innerStep4, #innerStep5, #innerStep6, #innerStep7, #innerStep8 {
+	padding:35px 10px 0 10px;
+}
+#innerStep1 div.ideal-wrap label, #innerStep2 div.ideal-wrap label, #innerStep3 div.ideal-wrap label, #innerStep4 div.ideal-wrap label,
+#innerStep5 div.ideal-wrap label, #innerStep6 div.ideal-wrap label, #innerStep7 div.ideal-wrap label, #innerStep8 div.ideal-wrap label {
+	margin-right:8px;
+}
+/*------  From Area Step1 -------*/
+#innerStep1 div.ideal-wrap {
+	float:left;
+	clear:inherit;
+	margin-right:55px;
+}
+#innerStep1 div.lastFrom {
+	margin-right:0;
+}
+
+/*------  From Area Step2 -------*/
+#innerStep2 textarea {
+    font-size: 12px;
+    height: 12px;
+    width: 565px;
+}
+#innerStep2 .ideal-field textarea {
+	margin-bottom:0;
+}
+/*------  From Area Step3 -------*/
+#innerStep3 div.ideal-wrap {
+	float:left;
+	clear:inherit;
+	margin-right:55px;
+}
+#innerStep3 div.lastFrom {
+	margin-right:0;
+}
+#innerStep3 .texttype2 .ideal-label {
+    top: -0.4em;
+}
+/*------  From Area Step4 -------*/
+#innerStep4 textarea {
+    width: 565px;
+}
+
+/*------  From Area Step5 -------*/
+#innerStep5 textarea {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) inset, 0 0 0 transparent;
+    color: #666666;
+    font-family: sans-serif;
+    font-size: 12px;
+    height: 180px;
+    outline: 0 none;
+    padding: 7.5px;
+    transition: background 0.3s ease-in-out 0s;
+    width: 922px;
+}
+
+/*------  From Area Step7 -------*/
+#innerStep7 label {
+	float:left;
+	clear:inherit;
+	margin-right:70px;
+}
+
+/*------  From Area StepBtn -------*/	
+.innerStepBtn {
+	padding:20px 0px 70px 0px;
+	border-top:1px solid #cfcfcf;
+	border-bottom:1px solid #cfcfcf;
+}
+.innerStepBtn .ideal-wrap, #innerStep9 .ideal-wrap,  #innerStep10 .ideal-wrap {
+	width:100%;
+}
+.innerStepBtn dt {
+	display:inline;
+}
+
+.innerStepBtn .progress {
+	float:right;
+	display:inline;
+}
+.innerStepBtn .progress .ideal-button {
+	margin-right:0;
+}
+
+dl {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+ 
+#innerStep7 .ideal-field {
+    float: left;
+	width:21%;
+}
+#innerStep7 .ideal-radiocheck-label {
+	padding-left:15px;
+}
+
+/*------  From Area Step8 -------*/
+#innerStep8 {
+	border-top:1px solid #000;
+}
+
+#mainContents .ideal-form input[type="text"],
+#mainContents .ideal-form input[type="password"],
+#mainContents .ideal-form input[type="email"],
+#mainContents .ideal-form input[type="number"],
+#mainContents .ideal-form input[type="search"],
+#mainContents .ideal-form input[type="url"],
+#mainContents .ideal-form input[type="tel"],
+#mainContents .ideal-form select {
+
+    width: 225px;
+}
+
+/*-----------------------------------
+  Markup free clearing
+  Details: http: //perishablepress.com/press/2009/12/06/new-clearfix-hack
+-------------------------------------*/
+.clearfix:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  }
+
+* html .clearfix { height: 1%; } /* IE6 */
+*:first-child + html .clearfix { min-height: 1%; } /* IE7 */
+
+.ideal-form .ideal-error {
+	position:absolute;
+	width:4em;
+	right:0px;
+	margin-right:0px;
+	top:-47px;
+	z-index:999;
+	padding:.8em 1.2em;
+	background-color:#ffffff;
+	border:1px solid #ec7979;
+	border-radius:3px 3px 3px 3px;
+}
+
+.logouot {
+    font-weight: normal;
+    line-height: 18px;
+    padding: 0 15px 25px;
+    text-align: left;
+	margin:0;
+    vertical-align: middle;
+}
+
+hr {
+	border:0;
+	height: 1px;
+	width:100%;
+	background-color:#cccccc;
+	margin:5px 0 0;
+}
+
+.action
+{
+	font-weight: bold !important;
+}
+
+.status17, .status26
+{
+		color: #088b08 !important;
+		border-bottom: 1px solid #088b08 !important;
+}
+
+.status3, .status9, .status12, .status16, .status5, .status19, .status21, .status14
+{
+		color: #028fe0 !important;
+		border-bottom: 1px solid #028fe0 !important;
+}
+
+.status22, .status24, .status29, .status30
+{
+		color: #e07a02 !important;
+		border-bottom: 1px solid #e07a02 !important;
+}
+
+.page a.inprogress {
+	color: #ddd !important;
+	text-decoration: none !important;
+	border-bottom: none !important;
+	cursor: default;	
+}
+
+a.inprogress:hover {
+	
+	color: #ddd;
+}
+#p_error
+{
+	color: red;
+	display: none;
+	line-height: 38px;
+}
+
+
+.ui-dialog {
+	top: 20px !important;
+}
+
+
+#confirm {
+	width:1100px;
+	background:#fff;
+	padding:40px 15px;
+}
+#confirm table {
+  background:#fff;
+  max-width:100%;
+  min-width:1100px;
+  border-spacing:0;
+  width:100%;
+}
+#confirm table th {
+    vertical-align:middle;
+	padding:0 15px;
+    line-height:18px;
+    text-align:left;
+	border-bottom:1px solid #ccc;
+	min-height:75px;
+	height:75px;
+	font-weight:normal;
+}
+#confirm table td {
+    vertical-align:middle;
+	padding:15px;
+    line-height:18px;
+    text-align:left;
+    border-bottom:1px solid #ccc;
+	border-left:1px solid #ccc;
+	min-height:75px;
+	height:75px;
+}
+#confirm table .frist {
+	border-top:1px solid #000;
+}
+#confirm table .last {
+	border-bottom:1px solid #000;
+}
+#sts {
+	padding:0;
+	margin:15px 0 20px 0;
+	width:100%;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+#innerStep8 {
+	padding:35px 10px 0 10px;
+}
+#innerStep8 div.ideal-wrap label {
+	margin-right:15px;
+}
+table tr:nth-child(2n+1) {  /* 奇数行 */
+	background-color: #f8f8f8;
+}
+
+
+.editArea {
+	text-align:right;
+}
+#editBtn {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    height: 33px;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-user-select: none;
+    background-color: #FFFFFF;
+    background-image: linear-gradient(#a86060, #682929);
+    background-repeat: no-repeat;
+    border-color: #B2B2B2 #B2B2B2 #999999;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    color: #fff;
+    cursor: pointer;
+    font-size: 85%;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    padding: 0 1.2em;
+}
+#editBtn:hover,#editBtn:focus {
+	border:1px solid #612d2d;border-bottom-color:#632424;background-color:#d58f8f;background-repeat:no-repeat;background-image:-webkit-gradient(linear,left top,left bottom,from(#d58f8f),to(#995555));background-image:-webkit-linear-gradient(#d58f8f,#995555);background-image:-moz-linear-gradient(#d58f8f,#995555);background-image:-o-linear-gradient(top,#d58f8f,#995555);filter:progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#d58f8f',EndColorStr='#995555',GradientType=0);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#d58f8f', EndColorStr='#995555', GradientType=0))";color:#fff;
+}
+
+#editBtn:active {
+	background:#995555;filter:0;-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08);-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08);box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08)
+}
+
+#backBtn {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-user-select: none;
+    background-color: #FFFFFF;
+    background-image: linear-gradient(#628bb3, #375b83);
+    background-repeat: no-repeat;
+    border-color: #B2B2B2 #B2B2B2 #999999;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    color: #fff;
+    cursor: pointer;
+    font-size: 85%;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    padding: 0 1.2em;
+}
+
+#backBtn:hover,#backBtn:focus {
+	border:1px solid #612d2d;border-bottom-color:#632424;background-color:#a5c7e8;background-repeat:no-repeat;background-image:-webkit-gradient(linear,left top,left bottom,from(#a5c7e8),to(#4a76a8));background-image:-webkit-linear-gradient(#a5c7e8,#4a76a8);background-image:-moz-linear-gradient(#a5c7e8,#4a76a8);background-image:-o-linear-gradient(top,#a5c7e8,#4a76a8);filter:progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#a5c7e8',EndColorStr='#4a76a8',GradientType=0);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#a5c7e8', EndColorStr='#4a76a8', GradientType=0))";color:#fff;
+}
+
+#backBtn:active {
+	background:#4a76a8;filter:0;-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08);-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08);box-shadow:inset 0 1px 2px rgba(0,0,0,0.2),inset 0 4px 2px rgba(0,0,0,0.08)
+}
+ 
+/*------  From Area innerStepRadio -------*/		
+.innerStepRadio label {
+	float:left;
+	clear:inherit;
+	margin-right:7px;
+}
+
+.innerStepRadio .ideal-field{
+    float: left;
+}
+
+.innerStepRadio .ideal-radiocheck-label{
+	padding-left:15px;
+}
+
+.ideal-form .ideal-label {
+	float:left;
+}
+
+.ideal-full-width .ideal-radiocheck {
+    max-width: 500px;
+    width: 500px;
+}
+
+
+.file1 {
+	padding: 7px 5px 10px 40px;
+	margin:0;
+	float:left;
+}
+
+.cancel_btn
+{
+	text-decoration: none !important;
+}
+
+#csv
+{
+	display: none;
+}
+
+#loading_back {
+    background: none repeat scroll 0 0 white;
+    height: 100%;
+    left: 0;
+    opacity: 0.7;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#loading_img { 
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    position: fixed;
+    width: 208px;
+    height: 13px;
+    top: 50%; 
+    background: url(loadingAnimation.gif);
+}

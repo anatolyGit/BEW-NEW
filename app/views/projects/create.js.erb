@@ -1,0 +1,9 @@
+<%- if @status == "confirm" %>
+	$("#dialog").html("<%= escape_javascript render(:partial => 'confirm') %>");
+<%- elsif @status == "re-edit" %>
+	$("#dialog").html("<%= escape_javascript render(:partial => 'new') %>");
+<%- elsif @status == "draft" %>
+	 $("#dialog").dialog("close");
+<%- end %>
+var $myform = $('#project-form').idealforms(options).data('idealforms');
+

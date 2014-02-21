@@ -1,0 +1,242 @@
+<h2 class="popup">  
+	<%= dir_h2_title(work_count) %>
+</h2>
+
+<%= form_for(@new_action , :remote => true, html: { id: 'image-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %>
+	 <%= hidden_field_tag :pa_link_id, @project.pa_links.last.id %>
+	 <%= hidden_field_tag :track, @start_time %>
+	 
+	 <%= hidden_field_tag :release_before_request, '' %>
+	 <% if @pa_link.work.present? %>
+			<%= f.hidden_field :check_name, value: @pa_link.work.check_name %>
+	 <% end %>
+
+	<table>
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :charge_name, '担当名:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if @pa_link.work.present? %>
+							<%= @pa_link.work.charge_name %>
+						<% else %>
+							<%= f.text_field :charge_name %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+
+			<td>	
+				<div class="t_ht"><div class="txt"><%= f.label :release_date, 'リリース日：' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if @pa_link.work.present? %>
+							<%= f.text_field :release_date, value: @pa_link.work.release_date %>
+						<% else %>
+							<%= f.text_field :release_date  %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :submit_date, '提出日（札幌）:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if @pa_link.work.present? %>
+							<%= @pa_link.work.submit_date %>
+						<% else %>
+							<%= f.text_field :submit_date %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :estimation, 'テストアップ:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if @pa_link.work.present? %>
+							<%= f.text_field :testup, value: @pa_link.work.testup %>
+						<% else %>
+							<%= f.text_field :testup  %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :urls, '対象URL:' %></div></div>
+			</td>
+
+			<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm">
+						<% if @pa_link.work.present? %>
+							<%= f.text_area :urls, value: @pa_link.work.contact  %>
+						<% else %>
+							<%= f.text_area :urls %>
+						<% end %>
+
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :contact, '作業内容:' %></div></div>
+			</td>
+
+			<td colspan = 3>
+				<div class="d_ht">
+					<div class="frm">
+						<% if @pa_link.work.present? %>
+							<%= f.text_area :contact, value: @pa_link.work.contact  %>
+						<% else %>
+							<%= f.text_area :contact%>
+						<% end %>
+
+					</div>
+				</div>
+			</td>
+
+
+		</tr>
+		<tr>
+			<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td>
+				<div class="d2_ht">
+					<div class="frm">
+						<%= f.file_field :attached_file %>
+					</div>
+				</div>
+			</td>
+
+			<td>	
+				<div class="t_ht"><div class="txt"><%= f.label :estimation, '見込み工数:' %></div></div>
+			</td>
+			<td>
+				<div class="d2_ht">
+					<div class="txt">
+						<% if @pa_link.work.present? %>
+							<%= f.text_field :estimation, value: @pa_link.work.estimation %>
+						<% else %>
+							<%= f.text_field :estimation, placeholder: 'h（修正がある場合)' %>
+						<% end %>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+<h2 class="popup">
+	<%= image_tag 'popup/tit_h2_release_request.gif', alt: 'Dir作業中', width: 275, height: 18 %>
+</h2>
+<%= hidden_field_tag "release[check_name]",   @project.pa_links[-1].work.check_name %>
+<table>
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>担当名:</label></div></div>
+		</td>
+
+		<td>
+			<div class="d2_ht">
+				<div class="txt">
+					<%= text_field_tag "release[charge_name]"  %> 
+				</div>
+			</div>
+		</td>
+
+		<td>
+			<div class="t_ht"><div class="txt"><label>リリース日：</label></div></div>
+		</td>
+
+		<td>
+			<div class="d2_ht">
+				<div class="txt">
+					<%= text_field_tag "release[release_date]"  %>
+				</div>
+			</div>
+		</td>
+	</tr>	 
+
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>対象URL</label></div></div>
+		</td>
+
+		<td colspan = 3>
+			<div class="d_ht">
+				<div class="frm">
+					<%= text_area_tag "release[urls]"  %>
+				</div>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<div class="t_ht"><div class="txt"><label>控えていたjob:</label></div></div>
+		</td>
+
+		<td colspan = 3>
+			<div class="d_ht">
+				<div class="frm">
+					<%= text_area_tag "release[jobs]"  %> 
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+			<td colspan = 3>
+			<div class="d_ht">
+				<div class="frm">
+					<%= file_field_tag "release[attached_file]" %>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<!-- Radio -->
+<div id="sts">
+    <%= f.label '進捗：' %>
+    <label>
+      <%= radio_button_tag :process, '着手可' %>
+      <p class="nam">着手可</p>
+    </label>
+
+    <label>
+      <%= radio_button_tag :process, '画像等・準備中' %>
+      <p class="nam">画像等、準備中</p>
+    </label>
+
+    <label>
+      <%= radio_button_tag :process, 'Fix、リリース前チェック' %>
+      <p class="nam">リリース前チェック着手</p>
+    </label>
+
+     <span id="p_error">Please check!</span>
+</div>
+
+<%= render partial:"popup/form_btn", locals: {f: f}%>   
+<% end %>

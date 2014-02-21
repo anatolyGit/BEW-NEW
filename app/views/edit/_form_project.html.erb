@@ -1,0 +1,112 @@
+<%= form_for(@project, html: { id: 'project-form', multipart: true }) do |f| %>
+  <% if @project.persisted? %>
+    <%= hidden_field_tag :id, @project.id %>        
+  <% end %>
+  <%= hidden_field_tag :track, @start_time %>
+  <%= f.hidden_field :working, value: "0" %>
+  <%= f.hidden_field :draft, value: "0" %>
+   
+  <% if @project.attached_file_cache.present? %>     
+    <%= hidden_field_tag  :file_upload,  @project.attached_file %>  
+  <% end %>
+<!-- Begin Form -->
+<hr>
+<div id="innerStep1" class="clearfix">
+  <div><!-- Begin case -->
+    <%= f.label :category, '案件区分:' %>
+    <% f.select :category, Project.categories_for_options, include_blank: '&ndash; 選択してください &ndash;' %>
+    <select id="project_category" name="project[category]">
+      <option value="default">&ndash; 選択してください &ndash;</option>
+      <option value="amc" <%= @project.category=='amc'?'selected':''%> >AMC運用</option>
+      <option value="int" <%= @project.category=='int'?'selected':''%> >INT運用</option>
+      <option value="wws" <%= @project.category=='wws'?'selected':''%> >WWS運用</option>
+      <option value="etc" <%= @project.category=='etc'?'selected':''%> >ETC</option>
+    </select>
+  </div><!-- End case -->
+  <div><!-- Begin case number -->
+    <%= f.label :number, '案件番号:' %>
+    <%= f.text_field :number, value: (@project.number ? @project.number : '' ) %> 
+  </div><!-- End case number -->
+
+  <div class="lastFrom"><!-- Begin release -->
+    <%= f.label :release_date, 'リリース日:' %>
+    <%= f.text_field :release_date, placeholder: 'yy-mm-dd-hh', value: (@project.release_date ? @project.release_date.strftime('%y-%m-%d-%H') : '' ) %>
+  </div><!-- End release -->
+</div>
+
+<div id="innerStep2" class="clearfix">
+  <div>
+    <%= f.label :name, '案件名:' %>
+    <%= f.text_area :name %>
+
+  </div>
+</div>
+
+<div id="innerStep3" class="clearfix">
+  <div class="texttype2">
+    <%= f.label :submit_date do %>
+      提出日<br>（札幌）:
+    <% end %>
+    <%= f.text_field :submit_date, placeholder: 'yy-mm-dd-hh', value: (@project.submit_date ? @project.submit_date.strftime('%y-%m-%d-%H') : '' ) %>
+  </div>
+  <div>
+    <%= f.label :testup, 'テストアップ:' %>
+    <%= f.text_field :testup, placeholder: 'yy-mm-dd-hh', value: (@project.testup ? @project.testup.strftime('%y-%m-%d-%H') : '' )  %>
+  </div>
+  <div class="lastFrom">
+    <%= f.label :estimation, '見込み工数:' %>
+    <%= f.text_field :estimation, placeholder: 'h' %>
+  </div>
+</div>
+
+<div id="innerStep4" class="clearfix">
+  <div>
+    <%= f.label :urls, '対象URL：' %>
+    <%= f.text_area :urls %>
+  </div>
+</div>
+
+<div id="innerStep5" class="clearfix">
+  <div>
+    <%= f.label :content, '作業内容：' %>
+    <%= f.text_area :content %>
+  </div>
+</div>
+
+<div id="innerStep6" class="clearfix">
+  <div class="balnk_file">
+    <%= f.label :attached_file, '添付：' %>
+    <%= f.file_field :attached_file %>    
+  </div>
+  
+  <div class ="attached_file"> 
+    <% unless @project.file_name.blank? %> 
+      <div class="file1"> 
+        ・ <a href="<%= @project.attached_file %>">
+            <%= @project.file_name %>
+          </a>
+      </div>
+    <% end %> 
+  </div>
+</div>
+
+<div class="innerStepRadio  clearfix">
+<!-- Radio -->
+  <div id="sts">
+    <%= f.label :progress, '進捗：' %>
+    <label>
+      <%= radio_button_tag :progress, '着手可' ,(params[:progress] == '着手可')%>
+      <p class="nam">着手可</p>
+    </label>
+    <label>
+      <%= radio_button_tag :progress, '画像等・準備中', (params[:progress] == '画像等・準備中') %>
+      <p class="nam">画像等・準備中</p>
+    </label>
+  </div>
+</div>
+
+<%= render partial:"edit/update_btn", locals: {f: f, pa_link: @project.pa_links.first} %>
+
+<% end %>
+<!-- End Form -->
+

@@ -1,0 +1,12 @@
+$('#loading_back').slideUp('slow');
+setTimeout(function(){
+	$('#loading_back').remove();
+	}, 1000 );
+
+
+$("#project_<%= escape_javascript @id %>").html("<%= escape_javascript render(:partial => 'list', :project => @project )%>");
+$(".action").click(
+	function() {
+		working(this);
+	}
+);

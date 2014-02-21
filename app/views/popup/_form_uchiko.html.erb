@@ -1,0 +1,47 @@
+﻿<h2 class="popup">
+	<%= image_tag 'popup/tit_h2_uchiko_img_file.gif', alt: '内校戻し作業中', width: 189, height: 18 %>
+</h2>
+
+<%= form_for(@new_action,:remote => true, html: { id: 'image-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %>
+	 <%= hidden_field_tag :pa_link_id, @project.pa_links.last.id %>
+	 <%= f.hidden_field :charge_name, value: @project.pa_links[-1].work.charge_name  %>
+	 <%= f.hidden_field :check_name, value: @project.pa_links[-1].work.check_name  %>
+	 <%= hidden_field_tag :track, @start_time %>
+		<table>
+			<tr>
+				<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td>
+					<div class="d_ht">
+						<div class="frm">							
+							<%= f.file_field :attached_file %>
+
+							<% if @new_action.present? %>	
+								<div class="file1">
+									・ <a href="<%= @new_action.attached_file %>">
+									<%= @new_action.file_name %></a>
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+<!-- Radio -->
+<div id="sts">
+    <%= f.label '進捗：' %>
+    <label>
+      <%= radio_button_tag :process, '内校戻し' %>
+      <p class="nam">着手</p>
+    </label>
+    <!--
+    <label>
+      <%= radio_button_tag :process, '内校戻し中断' %>
+      <p class="nam">作業ストップ</p>
+    </label>
+	-->
+     <span id="p_error">Please check!</span>
+</div>
+
+<%= render partial:"popup/form_btn", locals: {f: f}%>   
+<% end %>

@@ -1,0 +1,38 @@
+<h2 class="popup">	
+	<%= image_tag 'popup/tit_h1_dir_release_check.gif', alt: 'Dirリリース待機', width: 151, height: 18 %>
+</h2>
+
+<%= form_for(@new_action , :remote => true, html: { id: 'image-form', multipart: true }) do |f| %>
+	<%= hidden_field_tag :project_id, @project.id %>
+	<%= hidden_field_tag :pa_link_id, @project.pa_links.last.id %>
+	<%= hidden_field_tag :track, @start_time %>	 	 
+	<%= f.hidden_field :check_name, value: @project.pa_links[-1].work.check_name %>
+	 
+	<table>
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :charge_name, '担当名:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d_ht">
+					<div class="frm">							 
+						<%= f.text_field :charge_name %>		
+					</div>
+				</div>
+			</td>
+		</tr> 
+	</table>
+<!-- Radio -->
+<div id="sts">
+    <%= f.label '進捗：' %>
+    <label>
+      <%= radio_button_tag :process, '案件完了' %>
+      <p class="nam">案件完了</p>
+    </label>
+ 
+    <span id="p_error">Please check!</span> 
+</div>
+
+<%= render partial:"popup/form_btn", locals: {f: f}%>   
+<% end %>

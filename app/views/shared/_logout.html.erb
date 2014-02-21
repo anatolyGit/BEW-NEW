@@ -1,0 +1,13 @@
+<div id="logout">
+	<ul id="logoutNavi">
+		<li><a href="#">
+			<%= image_tag("logout_01.gif", :alt=> "",  :width=> "148", :height=> "25", :class => "btn") %>
+			</a>
+			<ul>
+				<li class="first">
+					<%= link_to image_tag("logout_02.gif", :alt=> "",  :width=> "148", :height=> "32", :alt => "ログアウト", :class => "btn") , :controller => "sessions", :action => "logout" %>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

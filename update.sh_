@@ -1,0 +1,118 @@
+#!/bin/bash 
+#
+# version 1.4.2	 2013-12-02
+LANG='ja_JP.UTF-8'
+
+#環境をセットしてください。
+#例) 開発: bw-dev-new 本番: honban
+envname=''
+if [ $envname = '' ]; then
+  echo "update.sh を編集して環境名をセットしてください"
+  exit 1
+fi
+
+dirname=`basename \`pwd\``
+if [ $dirname != 'rails' ]; then
+  echo "rails ディレクトリで実行してください!"
+  exit 1
+fi
+
+user=`whoami`
+if [ $user = 'root' ]; then
+  echo "update.sh must not be run as root!"
+  exit 1
+fi
+
+# フラグの指定
+force_flag=0
+while getopts 'f' OPTION
+do
+  case $OPTION in
+    f) force_flag=1
+                   ;;
+  esac
+done
+
+rq=`date +%Y%m%d%H%M%S`
+#ディレクトリがなければ作成
+mkdir -p log/gitinfo tmp
+
+logfile=~/rails/log/gitinfo/git_$rq.log
+#Git 更新
+echo "Git 更新..."
+git pull >> $logfile
+if [ $? != 0 ]; then
+  echo "Git 更新エラーです。ログを確認してください。"
+  echo "ログファイルは $logfile"
+  exit
+fi
+
+#コンフリクトのチェック
+#grep "^   C \|Summary of conflicts" $logfile
+#if [ $? = 0 ]; then
+#  echo "コンフリクトが発生しています!! ログを確認してください。処理を中断します"
+#  echo "ログファイルは $logfile"
+#  exit
+#fi
+
+#ディレクトリの権限変更
+#mkdir -p public/ckeditor_assets/pictures/
+#chmod 777 ~/rails/public/ckeditor_assets/pictures/
+
+#ソースの更新件数取得
+#count=`cat $logfile | wc -l`
+#count=$(($count-12))
+#if [ $count = 0 ]; then
+#  echo "更新されたファイルはありません。"
+#  if [ $force_flag != 1 ]; then
+#    exit
+#  fi
+#else
+#  echo "$count件更新しました。"
+#fi
+
+#設定ファイルのコピー
+cd ./config
+#database.yml
+if [ -e database.yml.$envname ]; then
+  cp -p database.yml.$envname database.yml
+  echo "database.yml.$envname をコピーしました。"
+fi
+#app_config.yml,live_config.ymlファイルのコピー
+#if [ -e app_config.yml.$envname ]; then
+#  cp -p app_config.yml.$envname app_config.yml
+#  echo "app_config.yml.$envname をコピーしました。"
+#fi
+#if [ -e live_config.yml.$envname ]; then
+#  cp -p live_config.yml.$envname live_config.yml
+#  echo "live_config.yml.$envname をコピーしました。"
+#fi
+
+cd ..
+
+#DBマイグレーション
+echo "マイグレーション実行中"
+rake db:migrate RAILS_ENV=production >> $logfile
+if [ $? != 0 ]; then
+  echo "db:migrate を実行しました。($?)"
+fi
+
+#cssやjsの更新があるかどうかを単純にgrepで判断
+#もしくは -f が指定されていればかならず実施する
+grep '\.css\|\.js|\.png|\.jpg|\.gif' log/gitinfo/git_$rq.log >/dev/null
+if [ $? = 0 -o $force_flag = 1 ]; then
+  echo "静的ファイルの更新が見つかったためプリコンパイルを実施します。"
+  cd ~/rails/app/
+  rake assets:precompile >> $logfile 2>&1
+  echo "プリコンパイルが終了しました。"
+fi
+
+#apache 再読込
+touch ~/rails/tmp/restart.txt
+echo "restart.txt更新"
+
+echo "ログファイルは $logfile"
+
+#ログ自動表示
+cat $logfile
+

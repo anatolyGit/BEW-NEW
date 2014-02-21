@@ -1,0 +1,459 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/* ------------------------------------------
+  Reset
+  http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+---------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  }
+body {
+  margin:0;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:13px;
+  line-height:18px;
+  color:#303030;
+  width: 100%;
+  background-color:#f2f2f2;
+  -webkit-font-smoothing:antialiased;
+  border-top:8px solid #000;
+  }
+ 
+ul { margin:0 0 20px; }
+li {
+  margin-left:30px;
+  margin-bottom:3px;
+  }
+ul li { list-style:disc; }
+ol li { list-style:decimal; }
+ 
+/*-----------------------------------
+  From Area Style
+-------------------------------------*/
+
+#innerStep1, #innerStep2, #innerStep3, #innerStep4, #innerStep5, #innerStep6, #innerStep7, #innerStep8 {
+	padding:35px 10px 0 10px;
+}
+#innerStep1 div.ideal-wrap label, #innerStep2 div.ideal-wrap label, #innerStep3 div.ideal-wrap label, #innerStep4 div.ideal-wrap label,
+#innerStep5 div.ideal-wrap label, #innerStep6 div.ideal-wrap label, #innerStep7 div.ideal-wrap label, #innerStep8 div.ideal-wrap label {
+	margin-right:8px;
+}
+/*------  From Area Step1 -------*/
+#innerStep1 div.ideal-wrap {
+	float:left;
+	clear:inherit;
+	margin-right:55px;
+}
+#innerStep1 div.lastFrom {
+	margin-right:0;
+}
+
+/*------  From Area Step2 -------*/
+#innerStep2 textarea {
+    font-size: 12px;
+    height: 12px;
+    width: 565px;
+}
+#innerStep2 .ideal-field textarea {
+	margin-bottom:0;
+}
+/*------  From Area Step3 -------*/
+#innerStep3 div.ideal-wrap {
+	float:left;
+	clear:inherit;
+	margin-right:55px;
+}
+#innerStep3 div.lastFrom {
+	margin-right:0;
+}
+#innerStep3 .texttype2 .ideal-label {
+    top: -0.4em;
+}
+/*------  From Area Step4 -------*/
+#innerStep4 textarea {
+    width: 565px;
+}
+
+/*------  From Area Step5 -------*/
+#innerStep5 textarea {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) inset, 0 0 0 transparent;
+    color: #666666;
+    font-family: sans-serif;
+    font-size: 12px;
+    height: 180px;
+    outline: 0 none;
+    padding: 7.5px;
+    transition: background 0.3s ease-in-out 0s;
+    width: 922px;
+}
+
+/*------  From Area Step7 -------*/
+#innerStep7 label {
+	float:left;
+	clear:inherit;
+	margin-right:70px;
+}
+#sts {
+	padding:0;
+	margin:15px 0 20px 0;
+	width:100%;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+
+#sts p.nam {
+	margin:3px 0;
+}
+
+#innerStep7 .ideal-field {
+    float: left;
+	width:25%;
+}
+#innerStep7 .ideal-radiocheck-label {
+	padding-left:15px;
+}
+
+/*------  From Area Step8 -------*/
+#innerStep8 {
+	border-top:1px solid #000;
+}
+
+#mainContents .ideal-form input[type="text"],
+#mainContents .ideal-form input[type="password"],
+#mainContents .ideal-form input[type="email"],
+#mainContents .ideal-form input[type="number"],
+#mainContents .ideal-form input[type="search"],
+#mainContents .ideal-form input[type="url"],
+#mainContents .ideal-form input[type="tel"],
+#mainContents .ideal-form select {
+
+    width: 225px;
+}
+
+/*-----------------------------------
+  Markup free clearing
+  Details: http: //perishablepress.com/press/2009/12/06/new-clearfix-hack
+-------------------------------------*/
+.clearfix:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  }
+
+* html .clearfix { height: 1%; } /* IE6 */
+*:first-child + html .clearfix { min-height: 1%; } /* IE7 */
+
+.ideal-form .ideal-error {
+	position:absolute;
+	width:4em;
+	right:0px;
+	margin-right:0px;
+	top:-47px;
+	z-index:999;
+	padding:.8em 1.2em;
+	background-color:#ffffff;
+	border:1px solid #ec7979;
+	border-radius:3px 3px 3px 3px;
+}
+
+.logouot {
+    font-weight: normal;
+    line-height: 18px;
+    padding: 0 15px 25px;
+    text-align: left;
+	margin:0;
+    vertical-align: middle;
+}
+
+hr {
+	border:0;
+	height: 1px;
+	width:100%;
+	background-color:#cccccc;
+	margin:5px 0 0;
+}
+
+
+#logout {
+	margin:0 auto;
+	min-width:1150px;
+	padding:0 40px;
+	z-index:1;
+	top:-28px;
+	right:5px;
+	position:relative;
+  }
+
+
+
+
+#logoutNavi li {
+    float:right;
+    position:relative;
+	list-style-type:none;
+	margin-left:0px;
+	top:0px;
+}
+
+#logoutNavi ul {
+    width: 148px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    display: none;
+	list-style-type:none;
+}
+
+#logoutNavi ul li a {
+    width: 148px;
+    display: block;
+	padding:0;
+	margin:0;
+}
+
+/* Project List style */
+.page a {
+  color:#7f7d7d;
+  font-weight:normal;
+  text-decoration:none;
+}
+
+.page a:hover {
+  border-color:#d0d0d0;
+  color:#7e0404;
+}
+
+.page{
+	position:absolute;
+}
+
+.page .inner
+{
+  margin:0 auto;
+  padding:0 40px 40px 40px;
+  position:relative;
+}
+
+.content .inner
+{
+    width:480px;
+}
+.heading
+{
+	margin-top:20px;
+	min-width:1150px;
+}
+
+.heading a {
+	float:right;
+	border:none;
+	margin-left:20px;
+	margin-right:0px;
+	color: black;
+}
+
+.new_btn
+{
+	width: 153px;
+	height: 43px;
+}
+.heading h1
+{
+	font-size:40px;
+  	line-height:18px;
+  	color:#CE6A6A;
+  	font-weight: bold;
+  	margin: 0 20px 20px;
+	display: block;
+	text-shadow: 0 1px 0 #fff;
+	float: left;
+}
+
+.all
+{
+	color:#CE6A6A;
+}
+
+/* ------------------------------------------
+  Reset ♥
+  http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+---------------------------------------------*/
+
+.tabNavi {
+	margin:10px 30px 0 30px;
+	list-style:none;
+	min-width:1150px;
+}
+.tabNavi li {
+	display:block;
+	float:left;
+	margin:0 20px 0 0;
+	line-height:1;
+	font-size:0;
+}
+.tabNavi li.lastBtn {
+	float:right;
+	margin:0;
+}
+.tabNavi li a {
+	border:none;
+
+}
+
+
+div#projectsListArea {
+	padding:15px 25px;
+	background:#fff;
+	min-width:1200px;
+}
+
+table#sort th { border-collapse: collapse; border-spacing: 0; }
+
+table#sort {
+  background:#fff;
+  max-width:100%;
+  min-width:1180px;
+  border-spacing:0;
+  width:100%;
+  margin:10px 0;
+  border-collapse:separate;
+  *border-collapse:collapsed;
+	-webkit-box-shadow:0 0 4px rgba(0,0,0,0.10);
+	-moz-box-shadow:0 0 4px rgba(0,0,0,0.10);
+	box-shadow:0 0 4px rgba(0,0,0,0.10);
+}
+table#sort th {
+    background:#fff;
+    text-shadow:0 1px 0 #fff;
+    font-weight:bold;
+    vertical-align:middle;
+	padding:0 15px;
+    line-height:18px;
+    text-align:left;
+    border-top:3px solid #000;
+	border-bottom:1px solid #000;
+	height:75px;
+}
+table#sort td {
+    vertical-align:middle;
+	padding:15px;
+    line-height:18px;
+    text-align:left;
+    border-top:1px solid #000;
+	height:45px;
+	white-space:nowrap;
+}
+
+table#sort td.rap {
+	white-space:normal;
+}
+
+table#sort thead:first-child tr td {
+    border-top:0;
+    }
+  table tbody + tbody {
+    border-top:2px solid #ddd;
+    }
+table#sort th + th,
+table#sort td + th {
+	background:url(/assets/list/th_boder.gif) top left no-repeat;
+    }
+table#sort td + td {
+    border-left:1px solid #ddd;
+    }
+table#sort tbody:first-child tr:first-child td {
+    border-top:0;
+    } 
+ 
+table.sort-header::-moz-selection,
+table.sort-header::selection {
+  background:transparent;
+  }
+
+table#sort th.sort-header {
+  cursor:pointer;
+  background:
+    url(/assets/list/default.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+    url(/assets/list/th_boder.gif) top left no-repeat;
+}
+table#sort th.sort-up {
+  background:
+    url(/assets/list/up.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+    url(/assets/list/th_boder.gif) top left no-repeat;
+}
+table#sort th.sort-down {
+  background:
+    url(/assets/list/down.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+    url(/assets/list/th_boder.gif) top left no-repeat;
+}
+table#sort th.first_th {
+   background:
+       url(/assets/list/default.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+	   none;
+}
+table#sort th.first_th.sort-down {
+   background:
+       url(/assets/list/down.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+	   none;
+}
+table#sort th.first_th.sort-up {
+   background:
+       url(/assets/list/up.gif) right center no-repeat, /* 最前面の背景レイヤーの背景画像 */
+	   none;
+}
+table#sort th.sort-up,
+table#sort th.sort-down {
+  visibility:visible;
+  color:#028fe0;
+}
+
+table tr:nth-child(2n+1) {  /* 奇数行 */
+	background-color: #f8f8f8;
+}
+
+.ui-dialog
+{
+	top: 10px;
+}
+
+body .masked
+{
+	pointer-events: none;
+	opacity: 0.6;
+	}
+.workboxscroll{
+  height:730px;
+  overflow: auto;
+}
+/*#confirm #project-form #sts .ideal_field .ideal-icon-valid{
+  clear: both;
+   margin-top: 10px;
+}*/

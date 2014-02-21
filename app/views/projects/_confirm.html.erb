@@ -1,0 +1,130 @@
+<% content_for :title do %>
+  新規案件作成-確認
+<% end %>
+ 
+<%= image_tag 'tit_h1_newcase.gif', alt: '新規案件作成', width: 235, height: 35 %>
+
+<div id="confirm">
+  <%= form_for(@project, :remote => true, html: { id: 'project-form' }) do |f| %>
+    <% if @project.try(:id) %>
+      <%= hidden_field_tag :id, @project.id %>
+    <% end %>
+    <%= hidden_field_tag :track, @start_time %>
+    <%= f.hidden_field :category %>
+    <%= f.hidden_field :number %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :release_date, value: @project.release_date.strftime('%y-%m-%d-%H') %>
+    <%= f.hidden_field :submit_date, value: @project.submit_date.strftime('%y-%m-%d-%H') %>
+    <%= f.hidden_field :testup, value: @project.testup.strftime('%y-%m-%d-%H') %>
+    <%= f.hidden_field :estimation %>
+    <%= f.hidden_field :urls %>
+    <%= f.hidden_field :content %>
+    <%= f.hidden_field :attached_file_cache %>
+    <%= f.hidden_field :attached_file %>    
+    
+    <% if not @project.attached_file.blank? %>
+         
+    <% elsif params[:file_upload] %>           
+
+    <% end %>
+
+  <!-- Begin Form -->
+<table>
+
+<tr>
+  <th class="frist">案件区分：</th>
+  <td class="frist"><%= Project.categories[@project.category] %></td>
+</tr>
+
+<tr>
+  <th>案件番号：</th>
+  <td><%= @project.number %></td>
+</tr>
+
+<tr>
+  <th>リリース日：</th>
+  <td><%= @project.release_date.strftime('%y-%m-%d-%H') %></td>
+</tr>
+
+<tr>
+  <th>案件名：</th>
+  <td><%= @project.name %></td>
+</tr>
+
+<tr>
+  <th>提出日（札幌）：</th>
+  <td><%= @project.submit_date.strftime('%y-%m-%d-%H') %></td>
+</tr>
+
+<tr>
+  <th>テストアップ：</th>
+  <td><%= @project.testup.strftime('%y-%m-%d-%H') %></td>
+</tr>
+
+<tr>
+  <th>見込み工数：</th>
+  <td><%= @project.estimation %> h</td>
+</tr>
+
+<tr>
+  <th>対象URL：</th>
+  <td>
+    <pre>
+    <%= @project.urls %>
+    </pre>
+  </tr>
+
+<tr>
+  <th>作業内容：</th>
+  <td>
+    <pre>
+    <%= @project.content %>
+    </pre>
+  </td>
+</tr>
+
+<tr>
+<th>添付：</th>
+  <td>
+    <% if not @project.attached_file.blank? %>
+    ・<%= link_to params[:project][:attached_file].original_filename, @project.attached_file.url %>
+    <% elsif params[:file_upload] %>     
+      ・<%= link_to get_file_name(params[:file_upload]) , params[:file_upload] %>          
+    <% end %>
+  </td>
+</tr>
+
+<tr>
+  <th class="last">進捗：</th>
+  <td class="last">
+    <div id="sts">
+    <% if (params[:progress] == '着手可')  || !params.has_key?(:progress) %>
+      <label style="margin-top:-5px;">
+        <%= radio_button_tag :progress, '着手可', (params[:progress] == '着手可'), id: :project_progress_available %>
+        <p class="nam">着手可</p>
+      </label>
+    <% elsif ((params[:progress] == '画像等・準備中')) %>
+      <label style="margin-top:-5px;" >
+        <%= radio_button_tag :progress, '画像等・準備中', (params[:progress] == '画像等・準備中'), id: :project_progress_prepare %>
+        <p class="nam">画像等・準備中</p>
+      </label>
+    <% end %>
+    </div>
+  </td>
+</tr>
+
+</table>
+
+
+<div id="innerStep8" class="clearfix">
+<!-- Buttons -->
+<div>
+  <%= f.submit '再編集' %>
+  <%= f.submit '作成' %>
+</div>
+</div>
+
+<% end %>
+<!-- End Form -->
+</div>
+</div>

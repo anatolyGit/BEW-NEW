@@ -1,0 +1,13 @@
+<div class="heading clearfix">
+	<h1>
+		<%= image_tag("list/ttl_all.gif", :alt=> "稼働全案件",  :width=> "196", :height=> "35", :class => "btn", :id => "project_title") %>
+	</h1>
+	 
+	<%= link_to  new_project_path, :remote => true, :id => 'create_project' do %>
+			<%= image_tag("btn_newcase.gif", :width => "153", :height => "43", :alt => "新規案件作成") %>
+	<% end %>
+
+	<%= link_to  projects_path(format: "xls"), :id => "csv"  do %>
+			<%= image_tag("btn_csv.gif", :width => "153", :height => "43", :alt => "CSV") %>
+	<% end %>
+</div>

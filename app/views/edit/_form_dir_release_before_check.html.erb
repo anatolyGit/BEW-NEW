@@ -1,0 +1,76 @@
+<h2 class="popup">	
+	<%= image_tag 'popup/tit_h2_dir_release_before_check.gif', alt: 'リリース前チェック', width: 178, height: 18 %>
+</h2>
+
+<%= form_for( pa_link, html: { class: 'edit-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %> 
+	 <%= hidden_field_tag :track, @start_time %>
+	 	 
+	<table>
+		<tr>
+			<td>
+				<div class="t_ht"><div class="txt"><%= f.label :charge_name, '担当名:' %></div></div>
+			</td>
+
+			<td>
+				<div class="d_ht">
+					<div class="frm">							  
+						<% if pa_link.work.present? %>
+							<%= f.text_field :charge_name, value: pa_link.work.charge_name %>
+						<% else %>
+							<%= f.text_field :charge_name  %>	
+						<% end %> 	
+					</div>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+				<td>
+					<div class="t_ht"><div class="txt"><%= f.label :contact, '連絡事項:' %></div></div>
+				</td>
+
+				<td>
+					<div class="d_ht">
+						<div class="frm">								 
+							<% if pa_link.work.present? %>
+							<%= f.text_area :charge_name, value: pa_link.work.contact %>
+						<% else %>
+							<%= f.text_area :contact  %>	
+						<% end %> 							
+						</div>
+					</div>
+				</td>
+		</tr> 
+		<tr>
+			<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+			<td>
+				<div class="d_ht">
+					<div class="frm">
+						<%= f.file_field :attached_file %>
+						<% unless pa_link.work.file_name.blank? %> 
+							<div class="file1">
+								・ <a href="<%= pa_link.work.attached_file %>">
+									<%= pa_link.work.file_name %>
+								  </a>
+							</div>
+						<% end %>	
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+<!-- Radio -->
+<div class="innerStepRadio clearfix">
+	<div id="sts">
+	    <%= f.label '進捗：' %>
+	    <label>
+	      <%= radio_button_tag :process, 'リリース待機' %>
+	      <p class="nam">リリース待機</p>
+	    </label>
+	 
+	    <span id="p_error">Please check!</span> 
+	</div>
+</div>
+<%= render partial:"edit/update_btn", locals: {f: f, pa_link: pa_link} %>
+<% end %>

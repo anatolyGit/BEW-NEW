@@ -1,0 +1,16 @@
+<div class="innerStepBtn clearfix">
+<!-- Buttons -->
+  <div>    
+    <dl>
+      <dt><%= f.submit '更 新' , id: :submit_btn, :confirm => "本当に更新しますか?" %></dt> 
+
+      <% if pa_link.id < @project.pa_links.last.id  %>
+        <dd class="progress">        
+          <%= link_to pa_link_path(pa_link.id ), :confirm => "本当に進捗をここまで戻しますか？", :method => :delete do %>
+            <button type="submit" id="backBtn">進捗をここまで戻す</button>
+          <% end %>
+        </dd>
+      <% end %>
+    </dl>
+  </div>
+</div>

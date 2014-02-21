@@ -1,0 +1,100 @@
+﻿<h2 class="popup">	
+	<%= form_h2_title( work_count ) %> 
+</h2>
+
+<%= form_for(@new_action , :remote => true, html: { id: 'image-form', multipart: true }) do |f| %>
+	 <%= hidden_field_tag :project_id, @project.id %>
+	 <%= hidden_field_tag :pa_link_id, @project.pa_links.last.id %>
+	 <%= hidden_field_tag :track, @start_time %>
+	 	 
+		<table>
+			<tr>
+					<td>
+						<div class="t_ht"><div class="txt"><%= f.label :charge_name, '担当名:' %></div></div>
+					</td>
+
+					<td>
+						<div class="d_ht">
+							<div class="frm">								
+			       				<% if @project.pa_links.work_charge.present? %>
+			        				<%= @project.pa_links.work_charge.work.charge_name %>	
+				            	<% else %>
+				            		<%= f.text_field :charge_name %>
+			     				<% end %> 
+							</div>
+						</div>
+					</td>
+			</tr>
+
+			<tr>
+					<td>
+						<div class="t_ht"><div class="txt"><%= f.label :contact, '確認事項:' %></div></div>
+					</td>
+
+					<td>
+						<div class="d_ht">
+							<div class="frm">
+								<% if @pa_link.work.present? %>
+									<%= f.text_area :contact, value: @pa_link.work.contact  %>
+								<% else %>
+									<%= f.text_area :contact%>
+								<% end %>
+
+							</div>
+						</div>
+					</td>
+			</tr>
+
+			<tr>
+					<td>
+						<div class="t_ht"><div class="txt"><%= f.label :jobs, '初回job:' %></div></div>
+					</td>
+
+					<td>
+						<div class="d_ht">
+							<div class="frm">
+								<% if @pa_link.work.present? %>
+									<%= f.text_area :jobs, value: @pa_link.work.jobs  %>
+								<% else %>
+									<%= f.text_area :jobs  %>
+								<% end %>
+							</div>
+						</div>
+					</td>
+			</tr>
+
+			<tr>
+				<td><div class="t_ht"><div class="txt"><label>添付：</label></div></div></td>
+				<td>
+					<div class="d_ht">
+						<div class="frm">
+							<%= f.file_field :attached_file %>
+							<% if @pa_link.work.present? %> 
+								<div class="file1">
+								・ <a href="<%= @pa_link.work.attached_file %>"><%= @pa_link.work.file_name %></a>
+								</div>
+							<% end %>	 
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+<!-- Radio -->
+<div id="sts">
+    <%= f.label '進捗：' %>
+    <label>
+      <%= radio_button_tag :process, 'Wチェック待ち' %>
+      <p class="nam">Wチェック待ち</p>
+    </label>
+
+    <label>
+      <%= radio_button_tag :process, '作業ストップ' %>
+      <p class="nam">作業ストップ</p>
+    </label>
+
+    <span id="p_error">Please check!</span>
+
+</div>
+
+<%= render partial:"popup/form_btn", locals: {f: f}%>   
+<% end %>

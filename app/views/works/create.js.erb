@@ -1,0 +1,15 @@
+$('#loading_back').slideUp('slow');
+setTimeout(function(){
+	$('#loading_back').remove();
+	}, 1000 );
+
+<% if @last_id == 31 %>
+	$("#project_<%= escape_javascript @id %>").html("");
+<% else %>
+	$("#project_<%= escape_javascript @id %>").html("<%= escape_javascript render(:partial => 'list', :project => @project )%>");
+<% end %>
+$(".action").click(
+	function() {
+		working(this);
+	}
+);
